@@ -4,7 +4,8 @@
   "description": "A preprocessor for jest with support for webpack aliases\"",
   "main": "preprocessor.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "doc": "documentation index.js --format md --output documentation.md"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +18,7 @@
     "testDirectoryName": "tests"
   },
   "devDependencies": {
+    "documentation": "^3.0.4",
     "jest-cli": "^0.7.1"
   }
 }
