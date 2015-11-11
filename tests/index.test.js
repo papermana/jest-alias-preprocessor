@@ -2,35 +2,32 @@
 
 jest.autoMockOff();
 
-jest.setMock('../webpack.config.js', {
-  resolve: {
-    root: '/path/to/dir',
-    alias: {
-      _js: 'app/js',
-      _utils: 'app/js/utils',
-    },
-  },
-});
-
 jest.setMock('babel-jest', {
   process(src, filename) {
     return src;
   },
 });
 
-const path = require('path');
+const config = {
+  resolve: {
+    root: '/path/to/dir',
+    alias: {
+      _js: 'app/js',
+      _utils: 'app/js/utils',
+      _helper: 'app/js/helper.js',
+    },
+  },
+};
 
-const preprocessor = require('../index.js')({
-  // rootLocation: process.cwd(),
-});
+const preprocessor = require('../index.js')(config);
 
 describe('Module index.js', () => {
   it('should return an object with a process() property', () => {
-    const call = preprocessor;
+    const callResult = preprocessor;
 
-    expect(call).toBeDefined();
+    expect(callResult).toBeDefined();
 
-    expect(call.process).toBeDefined();
+    expect(callResult.process).toBeDefined();
   });
 });
 
@@ -42,7 +39,7 @@ describe('The process() method', () => {
 
     const src = '';
     const transform = require('transform-jest-deps');
-    const altPreprocessor = require('../index.js')();
+    const altPreprocessor = require('../index.js')(config);
 
     altPreprocessor.process(src, filename);
 
@@ -51,12 +48,13 @@ describe('The process() method', () => {
 
   it('should return source unchanged if aliases have not been used', () => {
     const src = 'require("file1.js")';
+    const src2 = '';
 
-    const call = preprocessor.process(src, filename);
+    const callResult = preprocessor.process(src, filename);
+    const callResult2 = preprocessor.process(src2, filename);
 
-    expect(call).toBeDefined();
-
-    expect(call).toBe(src);
+    expect(callResult).toBe(src);
+    expect(callResult2).toBe(src2);
   });
 
   it('should tolerate files without extensions', () => {
@@ -91,5 +89,10 @@ describe('The process() method', () => {
 
     expect(preprocessor.process(src, filename))
     .toBe('require("/path/to/dir/app/js/")');
+
+    src = 'require("_helper")';
+
+    expect(preprocessor.process(src, filename))
+    .toBe('require("/path/to/dir/app/js/helper.js")');
   });
 });

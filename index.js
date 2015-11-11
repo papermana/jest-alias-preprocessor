@@ -10,19 +10,16 @@ const transform = require('transform-jest-deps');
 
 /**
  * Creates a new preprocessor, based on options given by the user.
- * @param {Object} [options] - The options object.
- * @param {string} [options.rootLocation=process.cwd()] - Root location of your project. You can use process.cwd() to return absolute path to your preprocessor file. By default it's the location of jest-alias-preprocessor.
- * @param {string} [options.configLocation='./webpack.config.js'] - Location of the webpack config file relative to the preprocessor.
+ * @param {Object} config - Configuration object containing resolve rules. Can be an imported `webpack.config.js`.
+ * @param {Object} config.resolve - A required property of config.
+ * @param {string} config.resolve.root - The objective path to the root directory of your project. You can use process.cwd() to get the current working directory.
+ * @param {Object} config.resolve.alias - An object containing alias rules as string properties, where key is an alias to be substituted, and value is a path to the aliased file or directory. Each path has to be relative to the config.resolve.root property.
  * @returns {Object} - An object containing a `process` property, used as a preprocessor.
  */
-function preprocessorFactory(options) {
-  // const root = (options && options.rootLocation) || '../../';
-  const root = (options && options.rootLocation) || process.cwd();
-  const configLocation = (options && options.configLocation) || './webpack.config.js';
-  const webpackConfig = require(path.join(root, configLocation));
-  const aliases = Object.keys(webpackConfig.resolve.alias)
+function preprocessorFactory(config) {
+  const aliases = Object.keys(config.resolve.alias)
   .map(key => {
-    const value = path.join(webpackConfig.resolve.root, webpackConfig.resolve.alias[key]);
+    const value = path.join(config.resolve.root, config.resolve.alias[key]);
 
     return {
       key,
