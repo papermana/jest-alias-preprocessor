@@ -1,3 +1,8 @@
+/**
+ * @module preprocessor
+ * @tutorial
+ */
+
 'use strict';
 
 const path = require('path');

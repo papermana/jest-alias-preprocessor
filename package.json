@@ -1,5 +1,5 @@
 {
-  "name": "jest-preprocessor",
+  "name": "jest-alias-preprocessor",
   "version": "0.1.0",
   "description": "A preprocessor for jest with support for webpack aliases\"",
   "main": "preprocessor.js",
