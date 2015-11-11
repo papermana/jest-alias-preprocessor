@@ -12,12 +12,14 @@ const transform = require('transform-jest-deps');
 /**
  * Creates a new preprocessor, based on options given by the user.
  * @param {Object} [options] - The options object.
+ * @param {string} [options.rootLocation='../../'] - Root location of your project. You can use process.cwd() to return absolute path to your preprocessor file.
  * @param {string} [options.configLocation='./webpack.config.js'] - Location of the webpack config file relative to the preprocessor.
  * @returns {Object} - An object containing a `process` property, used as a preprocessor.
  */
 function preprocessorFactory(options) {
+  const root = options.rootLocation || '../../';
   const configLocation = options.configLocation || './webpack.config.js';
-  const webpackConfig = require(configLocation);
+  const webpackConfig = require(path.join(root, configLocation));
   const aliases = Object.keys(webpackConfig.resolve.alias)
   .map(key => {
     const value = path.join(webpackConfig.resolve.root, webpackConfig.resolve.alias[key]);
