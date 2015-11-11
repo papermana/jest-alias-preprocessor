@@ -12,7 +12,7 @@ module.exports = require('jest-alias-preprocessor')(config);
 ```
 module.exports = require('jest-alias-preprocessor')({
   resolve: {
-    root: process.cwd(),
+    root: process.cwd() + '/../',
     alias: {
       _js: './app/js',
       _utils: './app/js/utils',

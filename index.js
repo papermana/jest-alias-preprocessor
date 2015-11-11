@@ -39,7 +39,7 @@ function preprocessorFactory(config) {
       const regex = new RegExp('^' + alias.key);
 
       if (regex.test(require)) {
-        return require.replace(regex, alias.value);
+        return path.normalize(require.replace(regex, alias.value));
       }
     }
 
