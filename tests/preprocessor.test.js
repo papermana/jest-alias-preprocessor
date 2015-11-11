@@ -20,11 +20,11 @@ jest.setMock('babel-jest', {
 
 const path = require('path');
 
-const preprocessor = require('../preprocessor.js')({
+const preprocessor = require('../index.js')({
   // rootLocation: process.cwd(),
 });
 
-describe('Module preprocessor.js', () => {
+describe('Module index.js', () => {
   it('should return an object with a process() property', () => {
     const call = preprocessor;
 
@@ -42,7 +42,7 @@ describe('The process() method', () => {
 
     const src = '';
     const transform = require('transform-jest-deps');
-    const altPreprocessor = require('../preprocessor.js')();
+    const altPreprocessor = require('../index.js')();
 
     altPreprocessor.process(src, filename);
 
