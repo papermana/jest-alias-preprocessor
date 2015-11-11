@@ -18,8 +18,23 @@ jest.setMock('babel-jest', {
   },
 });
 
-describe('Preprocessor', () => {
-  const preprocessor = require('../preprocessor.js');
+const path = require('path');
+
+const preprocessor = require('../preprocessor.js')({
+  // rootLocation: process.cwd(),
+});
+
+describe('Module preprocessor.js', () => {
+  it('should return an object with a process() property', () => {
+    const call = preprocessor;
+
+    expect(call).toBeDefined();
+
+    expect(call.process).toBeDefined();
+  });
+});
+
+describe('The process() method', () => {
   const filename = '/path/to/dir/someDir/index.js';
 
   it('should call transform-jest-deps with a source to transpile', () => {
@@ -27,7 +42,7 @@ describe('Preprocessor', () => {
 
     const src = '';
     const transform = require('transform-jest-deps');
-    const altPreprocessor = require('../preprocessor.js');
+    const altPreprocessor = require('../preprocessor.js')();
 
     altPreprocessor.process(src, filename);
 
@@ -37,15 +52,15 @@ describe('Preprocessor', () => {
   it('should return source unchanged if aliases have not been used', () => {
     const src = 'require("file1.js")';
 
-    const result = preprocessor.process(src, filename)
+    const call = preprocessor.process(src, filename);
 
-    expect(result).not.toBeUndefined();
+    expect(call).toBeDefined();
 
-    expect(result).toBe(src);
-  })
+    expect(call).toBe(src);
+  });
 
   it('should tolerate files without extensions', () => {
-    let src = 'require("_js/main")';
+    const src = 'require("_js/main")';
 
     expect(preprocessor.process(src, filename))
     .toBe('require("/path/to/dir/app/js/main")');
