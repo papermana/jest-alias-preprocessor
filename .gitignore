@@ -1,0 +1,15 @@
+# ignore temporary text files
+*~
+
+# ignore any hidden file
+# .*
+
+# ignore node modules
+# have to do npm install to get required modules
+node_modules
+npm-debug.log
+
+# ignore distribution-ready files
+dist
+dev
+production

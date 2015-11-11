@@ -1,0 +1,22 @@
+{
+  "name": "jest-preprocessor",
+  "version": "0.1.0",
+  "description": "A preprocessor for jest with support for webpack aliases\"",
+  "main": "preprocessor.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-jest": "^6.0.1",
+    "transform-jest-deps": "^2.1.0"
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "testDirectoryName": "tests"
+  },
+  "devDependencies": {
+    "jest-cli": "^0.7.1"
+  }
+}
