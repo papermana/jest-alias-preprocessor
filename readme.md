@@ -4,6 +4,6 @@ Create your own preprocessor file and link to it from Jest's configuration via t
 ## Example
 ```
 module.exports = require(jest-alias-preprocessor)({
-  configLocation: './webpack.config.js',
+  configLocation: '../webpack/config.js',
 });
 ```

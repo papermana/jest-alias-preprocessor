@@ -9,6 +9,12 @@ const path = require('path');
 const babelJest = require('babel-jest');
 const transform = require('transform-jest-deps');
 
+/**
+ * Creates a new preprocessor, based on options given by the user.
+ * @param {Object} [options] - The options object.
+ * @param {string} [options.configLocation='./webpack.config.js'] - Location of the webpack config file relative to the preprocessor.
+ * @returns {Object} - An object containing a `process` property, used as a preprocessor.
+ */
 function preprocessorFactory(options) {
   const configLocation = options.configLocation || './webpack.config.js';
   const webpackConfig = require(configLocation);
@@ -24,10 +30,10 @@ function preprocessorFactory(options) {
 
   /**
    * A callback function for transform-jest-deps.
+   * @private
    * @param {string} require - Content of a require() statement. Automatically passed by transform-jest-deps.
-   * @returns {string} Value passed in, either modifed by the function, or not.
+   * @returns {string} - Value passed in, either modifed by the function, or not.
    */
-
   function resolve(require) {
     for (let i = 0; i < aliases.length; i++) {
       const alias = aliases[i];
