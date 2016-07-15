@@ -10,15 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "babel-jest": "^6.0.1",
-    "transform-jest-deps": "^2.1.0"
+    "transform-jest-deps": "^2.2.0"
   },
   "jest": {
-    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
     "testDirectoryName": "tests"
   },
   "devDependencies": {
     "documentation": "^3.0.4",
-    "jest-cli": "^0.7.1"
+    "jest-cli": "^13.2.3"
   }
 }
