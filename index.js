@@ -5,7 +5,6 @@
 'use strict';
 
 const path = require('path');
-const babelJest = require('babel-jest');
 const transform = require('transform-jest-deps');
 
 /**
@@ -48,7 +47,6 @@ function preprocessorFactory(config) {
 
   return {
     process(src, path) {
-      src = babelJest.process(src, path);
       src = transform(src, resolve);
 
       return src;

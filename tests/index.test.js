@@ -2,12 +2,6 @@
 
 jest.autoMockOff();
 
-jest.setMock('babel-jest', {
-  process(src, filename) {
-    return src;
-  },
-});
-
 const config = {
   resolve: {
     root: '/path/to/dir',
