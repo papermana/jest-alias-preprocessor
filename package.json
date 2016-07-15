@@ -4,8 +4,7 @@
   "description": "A preprocessor for jest with support for webpack aliases\"",
   "main": "preprocessor.js",
   "scripts": {
-    "test": "jest",
-    "doc": "documentation index.js --format md --output documentation.md"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
@@ -17,7 +16,6 @@
   },
   "devDependencies": {
     "@papermana/eslint-config-basic": "^1.0.0",
-    "documentation": "^3.0.4",
     "jest-cli": "^13.2.3"
   }
 }
