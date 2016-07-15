@@ -1,6 +1,6 @@
 {
   "name": "jest-alias-preprocessor",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A preprocessor for Jest with support for webpack aliases",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,8 @@
     "jest",
     "preprocessor",
     "alias",
-    "webpack"
+    "webpack",
+    "require"
   ],
   "repository": {
     "type": "git",
