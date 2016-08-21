@@ -46,10 +46,10 @@ function preprocessorFactory(config) {
   function resolve(require) {
     for (let i = 0; i < aliases.length; i++) {
       const alias = aliases[i];
-      const regex = new RegExp(`^${alias.key}`);
+      const regex = new RegExp(`^${alias.key}$|^${alias.key}(\\/)`);
 
       if (regex.test(require)) {
-        return path.normalize(require.replace(regex, alias.value));
+        return path.normalize(require.replace(regex, `${alias.value}$1`));
       }
     }
 
