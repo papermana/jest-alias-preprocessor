@@ -4,7 +4,7 @@
   "description": "A preprocessor for Jest with support for webpack aliases",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --no-cache"
   },
   "author": "papermana",
   "license": "MIT",
