@@ -4,7 +4,8 @@
   "description": "A preprocessor for Jest with support for webpack aliases",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint:staged": "lint-staged"
   },
   "author": "papermana",
   "license": "MIT",
@@ -24,9 +25,19 @@
   },
   "devDependencies": {
     "@papermana/eslint-config-basic": "^1.0.0",
-    "jest-cli": "^13.2.3"
+    "eslint": "^3.12.2",
+    "jest-cli": "^13.2.3",
+    "lint-staged": "^3.2.4",
+    "pre-commit": "^1.2.2"
   },
   "jest": {
     "testDirectoryName": "tests"
+  },
+  "pre-commit": "lint:staged",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }
