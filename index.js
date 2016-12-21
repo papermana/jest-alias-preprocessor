@@ -1,6 +1,8 @@
 'use strict';
 
+const fs = require('fs');
 const path = require('path');
+const flatten = require('lodash.flatten');
 const transform = require('transform-jest-deps');
 
 /**
@@ -12,15 +14,26 @@ const transform = require('transform-jest-deps');
  * @returns {Object} - An object containing a `process` property, used as a preprocessor.
  */
 function preprocessorFactory(config) {
-  const aliases = Object.keys(config.resolve.alias)
-  .map(key => {
-    const value = path.join(config.resolve.root, config.resolve.alias[key]);
+  const roots = config.resolve.root ? [config.resolve.root] : config.resolve.modules;
+  const aliases = flatten(
+    roots.map(root => Object.keys(config.resolve.alias)
+      .map(key => {
+        const value = path.join(root, config.resolve.alias[key]);
 
-    return {
-      key,
-      value,
-    };
-  });
+        try {
+          fs.statSync(value);
+          return {
+            key,
+            value,
+          };
+        }
+        catch (e) {
+          return undefined;
+        }
+      })
+      .filter(Boolean)
+    )
+  );
 
   /**
    * A callback function for transform-jest-deps.
@@ -42,10 +55,8 @@ function preprocessorFactory(config) {
   }
 
   return {
-    process(src, path) {
-      src = transform(src, resolve);
-
-      return src;
+    process(src) {
+      return transform(src, resolve);
     },
   };
 }
