@@ -1,5 +1,3 @@
-'use strict';
-
 const fs = require('fs');
 const path = require('path');
 const flatten = require('lodash.flatten');
@@ -22,6 +20,7 @@ function preprocessorFactory(config) {
 
         try {
           fs.statSync(value);
+
           return {
             key,
             value,
@@ -44,7 +43,7 @@ function preprocessorFactory(config) {
   function resolve(require) {
     for (let i = 0; i < aliases.length; i++) {
       const alias = aliases[i];
-      const regex = new RegExp('^' + alias.key);
+      const regex = new RegExp(`^${alias.key}`);
 
       if (regex.test(require)) {
         return path.normalize(require.replace(regex, alias.value));

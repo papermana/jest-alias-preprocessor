@@ -1,12 +1,13 @@
 {
-  "extends": "@papermana/eslint-config-basic",
+  "extends": "@papermana/eslint-config-personal",
+  "parserOptions": {
+    "sourceType": "module"
+  },
   "env": {
     "browser": false,
     "es6": true,
     "node": true,
-    "jest": true
-  },
-  "ecmaFeatures": {
-    "experimentalObjectRestSpread": true
+    "jest": true,
+    "commonjs": true
   }
 }
