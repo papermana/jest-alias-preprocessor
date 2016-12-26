@@ -107,5 +107,17 @@ function testProcessMethod(config) {
       expect(preprocessor.process(src, filename))
         .toEqual('require("__fixtures__/app/js/utils/helper.js")');
     });
+
+    it('should ignore alias strings used as, or inside of, a filename or directory', () => {
+      let src;
+
+      src = 'require("__fixtures__/_js")';
+      expect(preprocessor.process(src, filename))
+        .toEqual('require("__fixtures__/_js")');
+
+      src = 'require("__fixtures__/test_js")';
+      expect(preprocessor.process(src, filename))
+        .toEqual('require("__fixtures__/test_js")');
+    });
   };
 }
