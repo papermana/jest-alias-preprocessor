@@ -49,7 +49,7 @@ function preprocessorFactory(config) {
       const regex = new RegExp(`^${alias.key}$|^${alias.key}(\\/)`);
 
       if (regex.test(require)) {
-        return path.normalize(require.replace(regex, `${alias.value}$1`));
+        return path.normalize(require.replace(regex, `${alias.value}$1`)).replace(/\\/g,'/');
       }
     }
 
